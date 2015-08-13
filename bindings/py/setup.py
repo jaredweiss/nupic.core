@@ -518,12 +518,6 @@ def getExtensionModules(nupicCoreReleaseDir, platform, bitness, cxxCompiler, cmd
 
 
 
-def postProcess(nupicCoreReleaseDir):
-  for egg in glob.glob("dist/*.egg"):
-    shutil.copy(egg, nupicCoreReleaseDir)
-
-
-
 if __name__ == "__main__":
   cwd = os.getcwd()
   os.chdir(PY_BINDINGS)
@@ -559,7 +553,7 @@ if __name__ == "__main__":
 
     print "\nSetup SWIG Python module"
     setup(
-      name="nupiccore",
+      name="nupic.bindings",
       ext_modules=extensions,
       version="0.1.0",
       namespace_packages=["nupic", "nupic.bindings"],
@@ -582,9 +576,6 @@ if __name__ == "__main__":
       ],
       long_description = "Python bindings for nupic core.",
       packages=find_packages())
-    if buildEgg:
-      postProcess(nupicCoreReleaseDir)
-    shutil.copy("requirements.txt", nupicCoreReleaseDir)
   finally:
     os.chdir(cwd)
 
